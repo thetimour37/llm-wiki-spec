@@ -1,0 +1,50 @@
+# Canonical frontmatter spec for llm-wiki pages
+# Copy to llm-wiki/_meta/schema.yaml in each project
+
+raw_read_last_date: "YYYY-MM-DDT00:00:00Z"   # update after each ingest
+
+types:
+  - project
+  - task
+  - reflection
+  - note
+  - idea
+  - entity
+  - source-summary
+
+statuses:            # required for type=task
+  - open
+  - wip
+  - done
+  - cancelled
+  - parked
+
+priorities:
+  - P0              # critical / blocking
+  - P1              # high
+  - P2              # normal
+  - P3              # low / someday
+
+sources:
+  - voice           # from voice transcript in raw/voice/
+  - text            # from text in raw/
+  - manual          # written directly by owner or LLM
+  - web             # from web article in raw/articles/
+  - ingest          # auto-created during ingest operation
+  - query-derived   # created as a result of a query answer
+
+required_fields:
+  all_pages:
+    - type
+    - title
+    - created
+    - updated
+    - source
+
+  type_task:
+    - status
+
+slug_rules:
+  pattern: "^[a-z0-9-]{1,40}$"
+  date_prefix_for_reflections: "YYYYMMDD-"
+  note: "slugs must exist in taxonomy.md before use"
